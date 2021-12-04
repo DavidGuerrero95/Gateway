@@ -1,0 +1,6 @@
+S:\Users\Documentos\SmartCity\Aplicacion\workspace\Gateway\src\main\java\com\gateway\security\SpringSecurityConfig.java
+S:\Users\Documentos\SmartCity\Aplicacion\workspace\Gateway\src\main\java\com\gateway\security\AuthenticationManagerJwt.java
+S:\Users\Documentos\SmartCity\Aplicacion\workspace\Gateway\src\main\java\com\gateway\filters\factory\EjemploGatewayFilterFactory.java
+S:\Users\Documentos\SmartCity\Aplicacion\workspace\Gateway\src\main\java\com\gateway\GatewayApplication.java
+S:\Users\Documentos\SmartCity\Aplicacion\workspace\Gateway\src\main\java\com\gateway\filters\EjemploGlobalFilter.java
+S:\Users\Documentos\SmartCity\Aplicacion\workspace\Gateway\src\main\java\com\gateway\security\JwtAuthenticationFilter.java

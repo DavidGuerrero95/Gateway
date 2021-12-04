@@ -1,0 +1,7 @@
+com\gateway\filters\factory\EjemploGatewayFilterFactory$Configuracion.class
+com\gateway\security\SpringSecurityConfig.class
+com\gateway\security\JwtAuthenticationFilter.class
+com\gateway\security\AuthenticationManagerJwt.class
+com\gateway\GatewayApplication.class
+com\gateway\filters\EjemploGlobalFilter.class
+com\gateway\filters\factory\EjemploGatewayFilterFactory.class
