@@ -27,7 +27,7 @@ public class SpringSecurityConfig {
 				.pathMatchers(HttpMethod.GET, "/api/usuarios/users/listar/", "/api/usuarios/users/findUsername/**",
 						"/api/usuarios/users/encontrarUsuario/**", "/api/usuarios/users/verUsuario/**",
 						"/api/usuarios/users/verificarCodigo/**", "/api/usuarios/users/file/downloadImage/**",
-						"/api/usuarios/users/obtenerEdad/**")
+						"/api/usuarios/users/obtenerEdad/**","/api/usuarios/users/file/binary/**")
 				.hasAnyRole("ADMIN", "USER", "MODERATOR", "INTERVENTOR")
 				.pathMatchers(HttpMethod.GET, "/api/usuarios/users/verRoleUsuario/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR")
@@ -68,7 +68,8 @@ public class SpringSecurityConfig {
 				.pathMatchers(HttpMethod.GET, "/api/proyectos/proyectos/listar/",
 						"/api/proyectos/proyectos/descripcion/**", "/api/proyectos/proyectos/listarByMuro/**",
 						"/api/proyectos/proyectos/imagen/downloadImage/**",
-						"/api/proyectos/proyectos/file/downloadFile/**")
+						"/api/proyectos/proyectos/file/downloadFile/**", "/api/proyectos/proyectos/imagen/binary/**",
+						"/api/proyectos/proyectos/file/binary/**","/api/proyectos/proyectos/imagen/ver/link/")
 				.hasAnyRole("USER").pathMatchers(HttpMethod.GET, "/api/proyectos/proyectos/ver/creador/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "MODERATOR")
 				.pathMatchers(HttpMethod.POST, "/api/proyectos/proyectos/crear/").hasAnyRole("ADMIN", "MODERATOR")
@@ -77,7 +78,7 @@ public class SpringSecurityConfig {
 				.pathMatchers(HttpMethod.PUT, "/api/proyectos/proyectos/imagen/poner/**",
 						"/api/proyectos/proyectos/file/poner/**", "/api/proyectos/proyectos/eliminarAdmin/**",
 						"/api/proyectos/proyectos/editEnabled/**", "/api/proyectos/proyectos/editEstado/**",
-						"/api/proyectos/proyectos/editarProyectos/**")
+						"/api/proyectos/proyectos/editarProyectos/**","/api/proyectos/proyectos/imagen/poner/link/")
 				.hasAnyRole("ADMIN", "MODERATOR")
 
 				// PREGUNTAS Y RESPUESTAS
@@ -106,9 +107,8 @@ public class SpringSecurityConfig {
 
 				// SUSCRIPCIONES
 				.pathMatchers(HttpMethod.GET, "/api/suscripciones/suscripciones/inscripcion/verificar/**",
-						"/api/suscripciones/suscripciones/cuestionario/verificar/**",
 						"/api/suscripciones/suscripciones/comentarios/ver/**",
-						"/api/suscripciones/suscripciones/likes/ver/**")
+						"/api/subscripciones/subscripciones/revisarLikes/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "USER")
 				.pathMatchers(HttpMethod.PUT, "/api/suscripciones/suscripciones/inscripcion/**",
 						"/api/suscripciones/suscripciones/inscripcion/anular/**",
@@ -116,7 +116,7 @@ public class SpringSecurityConfig {
 				.hasAnyRole("USER", "ADMIN")
 
 				// NOTIFICACIONES
-				.pathMatchers(HttpMethod.GET, "/api/notificaciones/notificaciones/verNotificaciones/**")
+				.pathMatchers(HttpMethod.GET, "/api/notificaciones/notificaciones/verNotificaciones/**", "/api/notificaciones/notificaciones/revisar/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "USER")
 				.pathMatchers(HttpMethod.PUT, "/api/notificaciones/notificaciones/borrarNotificacion/**",
 						"/api/notificaciones/notificaciones/cambiarNotificacion/**")
@@ -132,10 +132,7 @@ public class SpringSecurityConfig {
 				.hasAnyRole("ADMIN", "INTERVENTOR", "USER")
 
 				// PARAMETIZACION
-				.pathMatchers(HttpMethod.GET, "/api/parametrizacion/parametros/get/**",
-						"/api/parametrizacion/parametros/servicios/obtenerServicios/",
-						"/api/parametrizacion/parametros/servicios/obtenerNombre/")
-				.hasAnyRole("MODERATOR")
+				.pathMatchers(HttpMethod.GET, "/api/parametrizacion/parametros/get/**").hasAnyRole("MODERATOR")
 				.pathMatchers(HttpMethod.PUT, "/api/parametrizacion/parametros/servicios/colocarImagen/**")
 				.hasAnyRole("MODERATOR")
 				.pathMatchers(HttpMethod.POST, "/api/parametrizacion/parametros/crear/",

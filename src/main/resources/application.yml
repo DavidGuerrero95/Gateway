@@ -2,7 +2,7 @@ resilience4j:
   circuitbreaker:
     configs:
       defecto:
-        sliding-window-size: 6
+        sliding-window-size: 100
         failure-rate-threshold: 50
         wait-duration-in-open-state: 20s
         permitted-number-of-calls-in-half-open-state: 4
@@ -25,8 +25,10 @@ spring:
       routes:
       - id: app-usuarios
         uri: lb://app-usuarios
-        predicates:          - Path=/api/usuarios/**
-        filters:          - StripPrefix=2
+        predicates:
+          - Path=/api/usuarios/**
+        filters:
+          - StripPrefix=2
       - id: app-autenticacion
         uri: lb://app-autenticacion
         predicates:
@@ -44,7 +46,8 @@ spring:
         predicates:
           - Path=/api/muro/**
         filters:
-          - StripPrefix=2      - id: app-estadistica
+          - StripPrefix=2
+      - id: app-estadistica
         uri: lb://app-estadistica
         predicates:
           - Path=/api/estadistica/**
