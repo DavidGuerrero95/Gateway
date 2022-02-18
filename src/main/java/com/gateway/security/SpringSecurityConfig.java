@@ -138,6 +138,9 @@ public class SpringSecurityConfig {
 				.pathMatchers(HttpMethod.POST, "/api/parametrizacion/parametros/crear/",
 						"/api/parametrizacion/parametros/servicios/crear/")
 				.hasAnyRole("MODERATOR")
+				
+				// ADMIN
+				.pathMatchers("/api/notificaciones/**","/api/estadistica/**","/api/registro/**", "/api/preguntasrespuestas/**").hasRole("ADMIN")
 
 				.anyExchange().authenticated().and()
 				.addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION).csrf().disable().build();
