@@ -22,6 +22,16 @@ resilience4j:
 spring:
   cloud:
     gateway:
+      default-filters:
+      - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_UNIQUE
+      #globalcors:
+      #  cors-configurations:
+      #    '[/**]':
+      #      allowedOriginPatterns: ["*"]
+      #      allowedMethods: ["*"]
+      #      allowedHeaders: ["*"]
+      #      allowedOrigins: ["*"]
+      #  add-to-simple-url-handler-mapping: true
       routes:
       - id: app-usuarios
         uri: lb://app-usuarios
@@ -64,7 +74,7 @@ spring:
         predicates:
           - Path=/api/proyectos/**
         filters:
-          - StripPrefix=2     
+          - StripPrefix=2
       - id: app-subscripciones
         uri: lb://app-subscripciones
         predicates:

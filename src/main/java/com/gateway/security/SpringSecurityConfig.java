@@ -36,7 +36,7 @@ public class SpringSecurityConfig {
 						"/api/usuarios/users/editarEmail/**", "/api/usuarios/users/editarUbicacion/**",
 						"/api/usuarios/users/editarContrasena/**", "/api/usuarios/users/file/uploadImage/**")
 				.hasAnyRole("ADMIN", "USER", "MODERATOR", "INTERVENTOR")
-				.pathMatchers(HttpMethod.PUT, "/api/usuarios/users/eliminarAdmin/**")
+				.pathMatchers(HttpMethod.PUT, "/api/usuarios/users/eliminarAdmin/**", "/api/usuarios/users/eliminarPeticionAdmin/**")
 				.hasAnyRole("ADMIN", "USER", "MODERATOR")
 				// OJO
 				.pathMatchers(HttpMethod.POST, "/api/usuarios/users/crearUsuarioMod/").permitAll()
@@ -69,14 +69,16 @@ public class SpringSecurityConfig {
 						"/api/proyectos/proyectos/descripcion/**", "/api/proyectos/proyectos/listarByMuro/**",
 						"/api/proyectos/proyectos/imagen/downloadImage/**",
 						"/api/proyectos/proyectos/file/downloadFile/**", "/api/proyectos/proyectos/imagen/binary/**",
-						"/api/proyectos/proyectos/file/binary/**","/api/proyectos/proyectos/imagen/ver/link/")
-				.hasAnyRole("USER").pathMatchers(HttpMethod.GET, "/api/proyectos/proyectos/ver/creador/**")
+						"/api/proyectos/proyectos/file/binary/**","/api/proyectos/proyectos/imagen/ver/link/",
+						"/api/proyectos/proyectos/ver/proyecto/**")
+				.hasAnyRole("USER","ADMIN","MODERATOR").pathMatchers(HttpMethod.GET, "/api/proyectos/proyectos/ver/creador/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "MODERATOR")
 				.pathMatchers(HttpMethod.POST, "/api/proyectos/proyectos/crear/").hasAnyRole("ADMIN", "MODERATOR")
 				.pathMatchers(HttpMethod.PUT, "/api/proyectos/proyectos/visualizaciones/**")
 				.hasAnyRole("USER", "ADMIN", "MODERATOR", "INTERVENTOR")
 				.pathMatchers(HttpMethod.PUT, "/api/proyectos/proyectos/imagen/poner/**",
 						"/api/proyectos/proyectos/file/poner/**", "/api/proyectos/proyectos/eliminarAdmin/**",
+						"/api/proyectos/proyectos/eliminarPeticionAdmin/**",
 						"/api/proyectos/proyectos/editEnabled/**", "/api/proyectos/proyectos/editEstado/**",
 						"/api/proyectos/proyectos/editarProyectos/**","/api/proyectos/proyectos/imagen/poner/link/")
 				.hasAnyRole("ADMIN", "MODERATOR")
@@ -90,7 +92,8 @@ public class SpringSecurityConfig {
 						"/api/preguntasrespuestas/preguntasrespuestas/cuestionario/usuario/abrir/**",
 						"/api/preguntasrespuestas/preguntasrespuestas/respuestaFinal/**")
 				.hasAnyRole("ADMIN", "MODERATOR", "USER")
-				.pathMatchers(HttpMethod.PUT, "/api/preguntasrespuestas/preguntasrespuestas/preguntas/crear/**")
+				.pathMatchers(HttpMethod.PUT, "/api/preguntasrespuestas/preguntasrespuestas/preguntas/crear/**",
+						"/api/preguntasrespuestas/preguntasrespuestas/preguntas/editar/**")
 				.hasAnyRole("ADMIN", "MODERATOR")
 
 				// MURO
@@ -108,12 +111,17 @@ public class SpringSecurityConfig {
 				// SUSCRIPCIONES
 				.pathMatchers(HttpMethod.GET, "/api/suscripciones/suscripciones/inscripcion/verificar/**",
 						"/api/suscripciones/suscripciones/comentarios/ver/**",
-						"/api/subscripciones/subscripciones/revisarLikes/**")
+						"/api/suscripciones/suscripciones/revisarLikes/**",
+						"/api/suscripciones/suscripciones/comentarios/ver/**",
+						"/api/suscripciones/suscripciones/comentarios/verificar/posicion/usuario/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "USER")
 				.pathMatchers(HttpMethod.PUT, "/api/suscripciones/suscripciones/inscripcion/**",
 						"/api/suscripciones/suscripciones/inscripcion/anular/**",
-						"/api/suscripciones/suscripciones/comentarios/**", "/api/suscripciones/suscripciones/likes/**")
+						"/api/suscripciones/suscripciones/comentarios/**",
+						"/api/suscripciones/suscripciones/likes/**", "/api/suscripciones/suscripciones/comentarios/eliminar/**")
 				.hasAnyRole("USER", "ADMIN")
+				.pathMatchers(HttpMethod.PUT, "/api/suscripciones/suscripciones/comentarios/eliminar/todos/**")
+				.hasRole("INTERVENTOR")
 
 				// NOTIFICACIONES
 				.pathMatchers(HttpMethod.GET, "/api/notificaciones/notificaciones/verNotificaciones/**", "/api/notificaciones/notificaciones/revisar/**")
@@ -133,11 +141,13 @@ public class SpringSecurityConfig {
 
 				// PARAMETIZACION
 				.pathMatchers(HttpMethod.GET, "/api/parametrizacion/parametros/get/**").hasAnyRole("MODERATOR")
-				.pathMatchers(HttpMethod.PUT, "/api/parametrizacion/parametros/servicios/colocarImagen/**")
+				.pathMatchers(HttpMethod.GET, "/api/parametrizacion/parametros/terminosycondiciones/obtener/").permitAll()
+				.pathMatchers(HttpMethod.PUT, "/api/parametrizacion/parametros/servicios/colocarImagen/**","/api/parametrizacion/parametros/terminosycondiciones/editar/")
 				.hasAnyRole("MODERATOR")
 				.pathMatchers(HttpMethod.POST, "/api/parametrizacion/parametros/crear/",
 						"/api/parametrizacion/parametros/servicios/crear/")
 				.hasAnyRole("MODERATOR")
+				
 				
 				// ADMIN
 				.pathMatchers("/api/notificaciones/**","/api/estadistica/**","/api/registro/**", "/api/preguntasrespuestas/**").hasRole("ADMIN")
