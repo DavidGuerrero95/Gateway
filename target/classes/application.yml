@@ -134,4 +134,16 @@ spring:
         predicates:
           - Path=/api/interventor/**
         filters:
-          - StripPrefix=2        
+          - StripPrefix=2
+      - id: estadistica
+        uri: lb://estadistica
+        predicates:
+          - Path=/api/estadisticadashboard/**
+        filters:
+          - StripPrefix=2
+      - id: app-gamification
+        uri: lb://app-gamification
+        predicates:
+          - Path=/api/gamificacion/**
+        filters:
+          - StripPrefix=2       
