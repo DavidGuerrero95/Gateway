@@ -22,6 +22,9 @@ resilience4j:
 spring:
   cloud:
     gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
       default-filters:
       - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_UNIQUE
       #globalcors:
@@ -50,7 +53,7 @@ spring:
             args:
               name: usuarios
               statusCode: 500
-              #fallbackUri: forward:/api/autenticacion/metodoalternativo/
+              fallbackUri: forward:/api/autenticacion/metodoalternativo/
       - id: app-muro
         uri: lb://app-muro
         predicates:
@@ -145,5 +148,17 @@ spring:
         uri: lb://app-gamification
         predicates:
           - Path=/api/gamificacion/**
+        filters:
+          - StripPrefix=2
+      - id: app-preguntas
+        uri: lb://app-preguntas
+        predicates:
+          - Path=/api/preguntas/**
+        filters:
+          - StripPrefix=2
+      - id: app-respuestas
+        uri: lb://app-respuestas
+        predicates:
+          - Path=/api/respuestas/**
         filters:
           - StripPrefix=2       
