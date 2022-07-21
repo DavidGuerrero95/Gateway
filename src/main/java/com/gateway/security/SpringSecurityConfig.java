@@ -18,11 +18,11 @@ public class SpringSecurityConfig {
 	public SecurityWebFilterChain configure(ServerHttpSecurity http) {
 		return http.authorizeExchange().pathMatchers("/api/autenticacion/oauth/token").permitAll()
 
-				// AUTENTICACION
+				// AUTENTICACION -- CHECK
 				.pathMatchers(HttpMethod.POST, "/api/autenticacion/autenticacion/arreglar")
 				.hasAnyRole("ADMIN", "INTERVENTOR")
 
-				// BUSQUEDA
+				// BUSQUEDA -- CHECK
 				.pathMatchers(HttpMethod.GET, "/api/busqueda/busqueda/proyectos/buscar/")
 				.hasAnyRole("ADMIN", "MODERATOR", "USER")
 				.pathMatchers(HttpMethod.GET, "/api/busqueda/busqueda/username/ver/**").hasAnyRole("INTERVENTOR")
@@ -31,16 +31,16 @@ public class SpringSecurityConfig {
 				.pathMatchers(HttpMethod.PUT, "/api/estadistica/estadisticas/visualizaciones/aumentar/**")
 				.hasAnyRole("USER", "ADMIN", "MODERATOR", "INTERVENTOR")
 				.pathMatchers(HttpMethod.GET, "/api/estadistica/estadisticas/usuarios/ver/estadisticas/**",
-						"/api/estadistica/estadisticas/visualizacion/**", "/api/estadistica/estadisticas/proyecto/**",
+						"/api/estadistica/estadisticas/visualizaciones/**", "/api/estadistica/estadisticas/proyecto/**",
 						"/api/estadistica/estadisticas/export/excel/**")
 				.hasAnyRole("ADMIN", "USER", "MODERATOR")
 
-				// MURO
+				// MURO -- CHECK
 				.pathMatchers(HttpMethod.POST, "/api/muro/muros/crear/").hasAnyRole("ADMIN", "INTERVENTOR", "MODERATOR")
 				.pathMatchers(HttpMethod.GET, "/api/muro/muros/listar/", "/api/muro/muros/buscar/**")
 				.hasAnyRole("ADMIN", "USER", "MODERATOR")
 
-				// NOTIFICACIONES
+				// NOTIFICACIONES -- CHECK
 				.pathMatchers(HttpMethod.GET, "/api/notificaciones/notificaciones/revisar/**",
 						"/api/notificaciones/notificaciones/verNotificaciones/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "USER")
@@ -50,7 +50,7 @@ public class SpringSecurityConfig {
 				.pathMatchers(HttpMethod.PUT, "/api/notificaciones/notificaciones/enviar/mensaje/prueba/")
 				.hasRole("INTERVENTOR")
 
-				// PARAMETIZACION
+				// PARAMETIZACION -- CHECK
 				.pathMatchers(HttpMethod.GET, "/api/parametrizacion/parametros/flutter/ver/**").permitAll()
 				.pathMatchers(HttpMethod.GET, "/api/parametrizacion/parametros/get/**").hasAnyRole("MODERATOR")
 				.pathMatchers(HttpMethod.GET, "/api/parametrizacion/parametros/terminosycondiciones/obtener/")
@@ -64,7 +64,7 @@ public class SpringSecurityConfig {
 						"/api/parametrizacion/parametros/flutter/crear/")
 				.hasAnyRole("INTERVENTOR")
 
-				// PREGUNTAS
+				// PREGUNTAS -- CHECK
 				.pathMatchers(HttpMethod.POST, "/api/preguntas/preguntas/pregunta/").hasAnyRole("ADMIN", "MODERATOR")
 				.pathMatchers(HttpMethod.POST, "/api/preguntas/preguntas/arreglar/").hasAnyRole("INTERVENTOR")
 				.pathMatchers(HttpMethod.PUT, "/api/preguntas/preguntas/editar/").hasAnyRole("ADMIN", "MODERATOR")
@@ -74,14 +74,14 @@ public class SpringSecurityConfig {
 				.pathMatchers(HttpMethod.DELETE, "/api/preguntas/preguntas/todas/**", "/api/preguntas/preguntas/una/**")
 				.hasAnyRole("ADMIN", "MODERATOR")
 
-				// PROYECTOS
+				// PROYECTOS -- CHECK
 				.pathMatchers(HttpMethod.POST, "/api/proyectos/proyectos/crear/").hasAnyRole("ADMIN", "MODERATOR")
+				.pathMatchers(HttpMethod.POST, "/api/proyectos/proyectos/image/").hasRole("INTERVENTOR")
 				.pathMatchers(HttpMethod.GET, "/api/proyectos/proyectos/listar/",
 						"/api/proyectos/proyectos/imagen/binary/**", "/api/proyectos/proyectos/imagen/downloadImage/**",
 						"/api/proyectos/proyectos/file/binary/**", "/api/proyectos/proyectos/file/downloadFile/**",
 						"/api/proyectos/proyectos/descripcion/**", "/api/proyectos/proyectos/ver/proyecto/**",
-						"/api/proyectos/proyectos/listarByMuro/**", "/api/proyectos/proyectos/imagen/ver/link/",
-						"/api/proyectos/proyectos/ver/proyecto/**")
+						"/api/proyectos/proyectos/listarByMuro/**")
 				.hasAnyRole("USER", "ADMIN", "MODERATOR")
 				.pathMatchers(HttpMethod.GET, "/api/proyectos/proyectos/ver/creador/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "MODERATOR")
@@ -90,22 +90,20 @@ public class SpringSecurityConfig {
 						"/api/proyectos/proyectos/eliminarPeticionAdmin/**", "/api/proyectos/proyectos/editEnabled/**",
 						"/api/proyectos/proyectos/editEstado/**", "/api/proyectos/proyectos/editarProyectos/**",
 						"/api/proyectos/proyectos/gamificacion/cambiar-estado/**")
-				.hasAnyRole("ADMIN", "MODERATOR").pathMatchers(HttpMethod.POST, "/api/proyectos/proyectos/image/")
-				.hasRole("INTERVENTOR").pathMatchers(HttpMethod.PUT, "/api/proyectos/proyectos/arreglar/")
+				.hasAnyRole("ADMIN", "MODERATOR").pathMatchers(HttpMethod.PUT, "/api/proyectos/proyectos/arreglar/")
 				.hasRole("INTERVENTOR")
 
-				// RECOMENDACIONES
+				// RECOMENDACIONES -- CHECK
 				.pathMatchers(HttpMethod.GET, "/api/recomendacion/recomendaciones/proyectos/**",
 						"/api/recomendacion/recomendaciones/muro/**")
 				.hasAnyRole("ADMIN", "MODERATOR", "USER")
 				.pathMatchers(HttpMethod.GET, "/api/recomendacion/recomendaciones/listar/").hasAnyRole("INTERVENTOR")
 
-				// REGISTRO
+				// REGISTRO -- CHECK
 				.pathMatchers(HttpMethod.POST, "/api/registro/registro/nuevo/", "/api/registro/registro/confirmar/**")
-				.permitAll().pathMatchers(HttpMethod.POST, "/api/registro/registro/arreglar/")
-				.hasAnyRole("ADMIN", "INTERVENTOR")
+				.permitAll().pathMatchers(HttpMethod.POST, "/api/registro/registro/arreglar/").hasAnyRole("INTERVENTOR")
 
-				// RESPUESTAS
+				// RESPUESTAS -- CHECK
 				.pathMatchers(HttpMethod.POST, "/api/respuestas/respuestas/proyecto/**",
 						"/api/respuestas/formularios/crear/")
 				.hasAnyRole("ADMIN", "MODERATOR", "USER")
@@ -120,15 +118,14 @@ public class SpringSecurityConfig {
 				.pathMatchers(HttpMethod.PUT, "/api/respuestas/formularios/finalizar-usuario/")
 				.hasAnyRole("ADMIN", "MODERATOR", "USER")
 
-				// SUSCRIPCIONES
+				// SUSCRIPCIONES -- CHECK
 				.pathMatchers(HttpMethod.POST, "/api/suscripciones/suscripciones/crear/comentarios/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "USER")
 				.pathMatchers(HttpMethod.GET, "/api/suscripciones/suscripciones/inscripcion/verificar/**",
-						"/api/suscripciones/suscripciones/revisarLikes/**",
 						"/api/suscripciones/suscripciones/likes/ver/**",
 						"/api/suscripciones/suscripciones/ver/comentarios/**")
 				.hasAnyRole("ADMIN", "INTERVENTOR", "USER")
-				.pathMatchers(HttpMethod.PUT, "/api/suscripciones/suscripciones/inscripcion/**",
+				.pathMatchers(HttpMethod.PUT, "/api/suscripciones/suscripciones/inscripcion/verificar/**",
 						"/api/suscripciones/suscripciones/inscripcion/anular/**",
 						"/api/suscripciones/suscripciones/likes/**",
 						"/api/suscripciones/suscripciones/editar/comentarios/**")
@@ -141,8 +138,7 @@ public class SpringSecurityConfig {
 				// USUARIOS
 				.pathMatchers(HttpMethod.GET, "/api/usuarios/users/existUsuario/**",
 						"/api/usuarios/users/existUsername/**", "/api/usuarios/users/existEmail/**",
-						"/api/usuarios/users/existCellPhone/**", "/api/usuarios/users/usuarioExisteDatos/",
-						"/api/usuarios/users/existCedula/**")
+						"/api/usuarios/users/existCellPhone/**", "/api/usuarios/users/existCedula/**")
 				.permitAll()
 				.pathMatchers(HttpMethod.GET, "/api/usuarios/users/listar/", "/api/usuarios/users/findUsername/**",
 						"/api/usuarios/users/encontrarUsuario/**", "/api/usuarios/users/verUsuario/**",
@@ -175,7 +171,8 @@ public class SpringSecurityConfig {
 						"/api/gamificacion/gamificacion/proyectos/definir-ganadores/**")
 				.hasAnyRole("MODERATOR", "ADMIN")
 				.pathMatchers(HttpMethod.GET, "/api/gamificacion/gamificacion/proyectos/ver-habilitado/**",
-						"/api/gamificacion/gamificacion/proyectos/ver-ganadores/**")
+						"/api/gamificacion/gamificacion/proyectos/ver-ganadores/**",
+						"/api/gamificacion/gamificacion/proyectos/ver/**")
 				.hasAnyRole("USER", "MODERATOR", "ADMIN")
 				.pathMatchers(HttpMethod.POST, "/api/gamificacion/gamificacion/arreglar/").hasRole("INTERVENTOR")
 
@@ -187,7 +184,12 @@ public class SpringSecurityConfig {
 						"/api/interventor/interventor/eliminarProyectoDefinitivamente/")
 				.hasRole("INTERVENTOR")
 
-				.anyExchange().authenticated().and()
+				/*
+				 * .pathMatchers("/api/interventor/**", "/api/gamificacion/**",
+				 * "/api/usuarios/**", "/api/suscripciones/**", "/api/respuestas/",
+				 * "/api/registro/**", "/api/proyectos/**", "/api/notificaciones/**",
+				 * "/api/estadistica/**") .hasRole("INTERVENTOR")
+				 */.anyExchange().authenticated().and()
 				.addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION).csrf().disable().build();
 	}
 
